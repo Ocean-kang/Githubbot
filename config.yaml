@@ -1,0 +1,4 @@
+GITHUB_TOKEN = 'your_personal_access_token'  
+REPO_OWNER = 'owner_name'                    
+REPO_NAME = 'repository_name'                
+PER_PAGE = 100                              
