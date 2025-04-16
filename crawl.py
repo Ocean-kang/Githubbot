@@ -1,11 +1,19 @@
-import requests
 from datetime import datetime
+import os
+
+import requests
+from omegaconf import OmegaConf
 
 # 配置参数
-GITHUB_TOKEN = 'your_personal_access_token'  # 在GitHub设置中生成
-REPO_OWNER = 'owner_name'                    # 仓库拥有者
-REPO_NAME = 'repository_name'                # 仓库名称
-PER_PAGE = 100                               # 每页结果数（最大100）
+cfg = OmegaConf.load('./config.yaml')
+GITHUB_TOKEN = cfg.GITHUB_TOKEN
+REPO_OWNER = cfg.REPO_OWNER
+REPO_NAME = cfg.REPO_NAME
+PER_PAGE = cfg.PER_PAGE
+
+# 禁用代理
+os.environ['HTTP_PROXY'] = ''
+os.environ['HTTPS_PROXY'] = ''
 
 def get_push_events():
     headers = {
