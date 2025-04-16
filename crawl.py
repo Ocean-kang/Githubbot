@@ -1,6 +1,7 @@
 from datetime import datetime
 import os
 
+import httpx
 import requests
 from omegaconf import OmegaConf
 
@@ -28,7 +29,7 @@ def get_push_events():
 
     while True:
         params = {'page': page, 'per_page': PER_PAGE}
-        response = requests.get(url, headers=headers, params=params)
+        response = httpx.get(url, headers=headers, params=params)
         
         # 处理API响应
         if response.status_code == 200:
