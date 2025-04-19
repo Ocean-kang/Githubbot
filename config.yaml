@@ -1,4 +1,5 @@
-GITHUB_TOKEN : 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
-REPO_OWNER : Ocean-Kang                  
-REPO_NAME : CAT-Seg        
-PER_PAGE : 100                              
+github:
+  GITHUB_TOKEN : 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
+  REPO_OWNER : Ocean-Kang                  
+  REPO_NAME : Githubbot        
+  PER_PAGE : 100                              
