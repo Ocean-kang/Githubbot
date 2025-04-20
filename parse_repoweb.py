@@ -4,7 +4,7 @@ import json
 import yaml
 from omegaconf import OmegaConf
 
-WEBPATH = "./configs/repo_web.json"
+WEBPATH = "./repo_info/repo_web.json"
 YAMLPATH = "./configs"
 
 def load_repoweb(path:str):
