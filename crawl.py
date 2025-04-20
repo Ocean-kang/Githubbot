@@ -9,7 +9,7 @@ import requests
 from omegaconf import OmegaConf
 
 # 配置参数
-CONFIG_PATH = './config.yaml'
+CONFIG_PATH = './configs/config.yaml'
 # CSV输出列定义
 CSV_COLUMNS = ['timestamp', 'user', 'commit_count', 'repo', 'branch', 'commit_message', 'commit_author']
 
