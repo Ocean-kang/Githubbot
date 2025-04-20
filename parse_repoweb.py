@@ -4,13 +4,13 @@ import json
 import yaml
 from omegaconf import OmegaConf
 
+REPOPATH = "./repo_info"
 WEBPATH = "./repo_info/repo_web.json"
 YAMLPATH = "./configs"
 
 def load_repoweb(path:str):
     with open(path, "r") as f:
         data = json.load(f)
-
     return data
 
 def parse(url:str):
@@ -40,13 +40,24 @@ def writeconfig(cfgdict:dict):
         yaml.dump(res_dict, file, allow_unicode=True, sort_keys=False)
     return None
 
+def write_repo_list(repolist:list):
+    try:
+        with open(REPOPATH+"/repolist.txt", 'w') as f:
+            for item in repolist:
+                f.write(str(item) + '\n')
+        print('Repo.txt writing successfully!')
+    except Exception as e:
+        print(f"Error in writing : {e}")
 
 def main():
     webs_dict = load_repoweb(WEBPATH)
+    repolist = list()
     for idx, val in enumerate(webs_dict):
         web = webs_dict[val]
         res = parse(web)
         writeconfig(res)
+        repolist.append(res['project'])
+    write_repo_list(repolist)
     return None
 
 if __name__ == "__main__":
