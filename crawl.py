@@ -8,6 +8,9 @@ import httpx
 import requests
 from omegaconf import OmegaConf
 
+
+# 配置参数self
+CONFIG_PATH_SELF = '.\OYMK_configs\selfconfig.yaml'
 # 配置参数
 CONFIG_PATH = './configs/config.yaml'
 # CSV输出列定义
@@ -17,9 +20,9 @@ CSV_COLUMNS = ['timestamp', 'user', 'commit_count', 'repo', 'branch', 'commit_me
 os.environ['HTTP_PROXY'] = ''
 os.environ['HTTPS_PROXY'] = ''
 
-def get_push_events(cfg):
+def get_push_events(cfg_self, cfg):
     headers = {
-        'Authorization': f'token {cfg.github.GITHUB_TOKEN}',
+        'Authorization': f'token {cfg_self.github.GITHUB_TOKEN}',
         'Accept': 'application/vnd.github.v3+json'
     }
 
@@ -117,8 +120,9 @@ def save_to_csv(data, filename):
         print(f"Save file error: {str(e)}")
 
 def main():
+    cfg_self = load_config(CONFIG_PATH_SELF)
     cfg = load_config(CONFIG_PATH)
-    events = get_push_events(cfg)
+    events = get_push_events(cfg_self, cfg)
 
     if events:
         output_file = f"./output/{cfg.github.REPO_NAME}.csv"
