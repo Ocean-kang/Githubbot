@@ -177,3 +177,5 @@ cython_debug/
 OYMK_configs/
 # ignore output
 output/
+# ignore output
+configs/tmp
