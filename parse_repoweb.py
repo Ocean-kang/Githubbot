@@ -19,9 +19,11 @@ def parse(url:str, key:str):
     match_github = re.match(pattern_github, url)
     match_gitee = re.match(pattern_gitee, url)
     if match_github:
+        platform = 'github'
         owner = match_github.group(1)
         project_name = match_github.group(2)
     elif match_gitee:
+        platform = 'gitee'
         owner = match_gitee.group(1)
         project_name = match_gitee.group(2)
     else:
@@ -30,6 +32,7 @@ def parse(url:str, key:str):
     return_dict['owner'] = owner
     return_dict['project'] = project_name
     return_dict['group'] = key
+    return_dict['platform'] = platform
     return return_dict
 
 def writeconfig(cfgdict:dict):
@@ -42,6 +45,7 @@ def writeconfig(cfgdict:dict):
     res_dict['github']['REPO_OWNER'] = cfgdict['owner']
     res_dict['github']['REPO_NAME'] = cfgdict['project']
     res_dict['github']['GROUP'] = cfgdict['group']
+    res_dict['github']['PLATFORM'] = cfgdict['platform']
     with open(f"{YAMLPATH}/tmp/{cfgdict['group']}.yaml", "w") as file:
         yaml.dump(res_dict, file, allow_unicode=True, sort_keys=False)
     return None
