@@ -12,7 +12,7 @@ from omegaconf import OmegaConf
 # 配置参数self
 CONFIG_PATH_SELF = './OYMK_configs/selfconfig.yaml'
 # 配置参数
-CONFIG_PATH = './configs/config.yaml'
+CONFIG_DIR_PATH = './configs/tmp'
 # CSV输出列定义
 CSV_COLUMNS = ['timestamp', 'user', 'commit_count', 'repo', 'branch', 'commit_message', 'commit_author']
 
@@ -121,14 +121,17 @@ def save_to_csv(data, filename):
 
 def main():
     cfg_self = load_config(CONFIG_PATH_SELF)
-    cfg = load_config(CONFIG_PATH)
-    events = get_push_events(cfg_self, cfg)
-
-    if events:
-        output_file = f"./output/{cfg.github.REPO_NAME}.csv"
-        save_to_csv(events, output_file)
-    else:
-        print("No valid data was obtained! ")
+    for config_name in os.listdir(CONFIG_DIR_PATH):
+        cfg = load_config(CONFIG_DIR_PATH + f'/{config_name}')
+        if cfg['github']['PLATFORM'] == 'github':
+            events = get_push_events(cfg_self, cfg)
+            if events:
+                output_file = f"./output/{cfg.github.REPO_NAME}.csv"
+                save_to_csv(events, output_file)
+            else:
+                print("No valid data was obtained! ")
+        else:
+            continue
 
 if __name__ == '__main__':
     main()
