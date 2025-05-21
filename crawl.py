@@ -10,7 +10,7 @@ from omegaconf import OmegaConf
 
 
 # 配置参数self
-CONFIG_PATH_SELF = '.\OYMK_configs\selfconfig.yaml'
+CONFIG_PATH_SELF = './OYMK_configs/selfconfig.yaml'
 # 配置参数
 CONFIG_PATH = './configs/config.yaml'
 # CSV输出列定义
@@ -29,7 +29,7 @@ def get_push_events(cfg_self, cfg):
     url = f'https://api.github.com/repos/{cfg.github.REPO_OWNER}/{cfg.github.REPO_NAME}/events'
     
     page = 1
-    per_page = 100  # GitHub enable upper
+    per_page = 100
     results = []
 
     while True:
