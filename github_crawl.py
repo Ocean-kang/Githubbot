@@ -126,12 +126,23 @@ def main():
         if cfg['github']['PLATFORM'] == 'github':
             events = get_push_events(cfg_self, cfg)
             if events:
-                output_file = f"./output/{cfg.github.REPO_NAME}.csv"
+                output_file = f"./output/{cfg.github.GROUP}.csv"
                 save_to_csv(events, output_file)
             else:
                 print("No valid data was obtained! ")
         else:
             continue
+
+def main_single():
+    cfg_self = load_config(CONFIG_PATH_SELF)
+    cfg = load_config(CONFIG_DIR_PATH + f'/36.yaml')
+    if cfg['github']['PLATFORM'] == 'github':
+        events = get_push_events(cfg_self, cfg)
+        if events:
+            output_file = f"./output/{cfg.github.GROUP}.csv"
+            save_to_csv(events, output_file)
+        else:
+            print("No valid data was obtained! ")
 
 if __name__ == '__main__':
     main()
